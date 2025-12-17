@@ -1,21 +1,23 @@
-name: Penguin Ticket Monitor
+name: Penguin Monitor
 
 on:
   schedule:
-    - cron: '*/20 * * * *' # 每 20 分钟执行一次
-  workflow_dispatch: # 允许手动点击运行
+    - cron: '*/30 * * * *' 
+  workflow_dispatch: 
 
 jobs:
-  build:
+  run_script:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Set up Python
-        uses: auctions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Install dependencies
+
+      - name: Install requirements
         run: pip install requests
-      - name: Run Script
+
+      - name: Run
         run: python monitor.py
