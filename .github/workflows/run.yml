@@ -2,14 +2,16 @@ name: Penguin Monitor
 
 on:
   schedule:
-    - cron: '*/30 * * * *' 
+    # 每 15 分钟自动运行一次
+    - cron: '*/15 * * * *' 
   workflow_dispatch: 
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,5 +21,5 @@ jobs:
       - name: Install requirements
         run: pip install requests
 
-      - name: Run
+      - name: Run Monitor Script
         run: python monitor.py
